@@ -2,9 +2,11 @@
 #define __DATABASECONNECTION_H__
 
 #include <string>
+#include <vector>
 #include <pqxx/pqxx>
 
-#include "DatabaseInfos.h"
+#include "structs/DatabaseInfos.h"
+#include "structs/PositionData.h"
 
 class DatabaseConnection
 {
@@ -19,6 +21,7 @@ public:
     DatabaseConnection(DatabaseInfos connectionInfos);
     ~DatabaseConnection();
 
+    void addFlightPath(std::vector<PositionData> positions);
 };
 
 #endif // __DATABASECONNECTION_H__

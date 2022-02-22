@@ -8,6 +8,7 @@
 
 #include "options_parser.h"
 #include "DatabaseConnection.h"
+#include "CsvParser.h"
 
 using namespace std;
 
@@ -20,6 +21,8 @@ int main(int argc, char *argv[])
         parseOptions(argc, argv, dbInfos, inputInfos);
         DatabaseConnection databaseConnection(dbInfos);
 
+        CsvParser parser(inputInfos.inputFilename);
+        vector<PositionData> positions = parser.parsePositions();
         
     } 
     catch (std::exception& e)

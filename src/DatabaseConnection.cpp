@@ -19,3 +19,10 @@ DatabaseConnection::DatabaseConnection(DatabaseInfos infos)
 DatabaseConnection::~DatabaseConnection()
 {}
 
+void addFlightPath(std::vector<PositionData> positions)
+{
+    // WARN : this implementation is not safe from SQL injection attacks, as 
+    // the array insertion is very tedious to do with prepared statement
+
+    // TODO 
+}
