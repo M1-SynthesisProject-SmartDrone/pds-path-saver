@@ -24,7 +24,7 @@ INSERT INTO flight_path(name, path) VALUES (
     ST_MakeLine(ARRAY[
         ST_MakePoint(48.2341256, 1.2341345, 84000),
         ST_MakePoint(47.3341256, 1.1341345, 85000),
-        ST_MakePoint(46.4341256, 1.0341345, 83000)  
+        ST_MakePoint(46.4341256, 1.0341345, 83000)
     ])
 );
 

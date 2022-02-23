@@ -5,12 +5,15 @@
 
 #include <iostream>
 #include <vector>
+#include <functional>
 
 #include "options_parser.h"
 #include "DatabaseConnection.h"
 #include "CsvParser.h"
 
 using namespace std;
+
+// #define DEBUG
 
 int main(int argc, char *argv[])
 {
@@ -23,7 +26,10 @@ int main(int argc, char *argv[])
 
         CsvParser parser(inputInfos.inputFilename);
         vector<PositionData> positions = parser.parsePositions();
-        
+#ifdef DEBUG
+        for_each(positions.begin(), positions.end(), [](PositionData p) {printf("%s - %s - %s\n", p.lat.c_str(), p.lon.c_str(), p.alt.c_str());});
+#endif
+        databaseConnection.addFlightPath(positions);
     } 
     catch (std::exception& e)
     {

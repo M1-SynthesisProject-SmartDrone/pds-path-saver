@@ -12,7 +12,7 @@ class DatabaseConnection
 {
 private:
     DatabaseInfos m_connectionInfos;
-    std::unique_ptr<pqxx::connection> m_connection;
+    pqxx::connection *m_connection;
 public:
     /**
      * Creates the connection with the database directly.
@@ -21,7 +21,7 @@ public:
     DatabaseConnection(DatabaseInfos connectionInfos);
     ~DatabaseConnection();
 
-    void addFlightPath(std::vector<PositionData> positions);
+    void addFlightPath(std::vector<PositionData>& positions);
 };
 
 #endif // __DATABASECONNECTION_H__

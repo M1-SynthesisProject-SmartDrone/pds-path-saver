@@ -3,34 +3,41 @@
 using namespace std;
 namespace fs = std::filesystem;
 
-CsvParser::CsvParser(std::string filename) : m_filePath(filename)
-{}
+CsvParser::CsvParser(std::string filename) : m_filePath(filename), m_inputStream(m_filePath)
+{
+    string line;
+    m_inputStream >> line;
+    m_headers = splitLine(line, ';');
+}
 
 CsvParser::~CsvParser()
 {}
 
-vector<string> split(const string &str, char delimiter)
+vector<string> CsvParser::splitLine(string s, char delimiter)
 {
-    vector<string> result;
-    stringstream sstream;
-    string item;
+    size_t startPosition = 0, endPosition;
+    string token;
+    vector<string> splitResult;
 
-    while (getline(sstream, item, delimiter))
+    while ((endPosition = s.find(delimiter, startPosition)) != string::npos)
     {
-        result.push_back(item);
+        token = s.substr(startPosition, endPosition - startPosition);
+        startPosition = endPosition + 1;
+        splitResult.push_back(token);
     }
-    return result;
+
+    splitResult.push_back(s.substr(startPosition));
+    return splitResult;
 }
 
 vector<PositionData> CsvParser::parsePositions()
 {
     string line;
     vector<PositionData> positions;
-    ifstream inputStream(m_filePath);
-    while(inputStream >> line)
+    while (m_inputStream >> line)
     {
-        auto splitted = split(line, ';');
-        
+        auto splitted = splitLine(line, ';');
+
         PositionData positionData{
             splitted[0],
             splitted[1],
